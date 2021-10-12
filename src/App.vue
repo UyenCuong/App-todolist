@@ -15,7 +15,7 @@
 </template>
 
 <script>
-
+import { ref } from 'vue';
 import TodoHeader from './components/TodoList/TodoListHeader/TodoHeader.vue';
 import StatusTodoInput from './components/TodoList/TodoItem/StatusTodoInput.vue';
 import AddTodoInput from './components/TodoList/TodoListFooter/AddTodoInput.vue';
@@ -28,23 +28,19 @@ export default {
 
   },
   data() {
-    const dataValue = (value) => {
-      console.log(value);
-    };
-     const todos = [
+     const todos = ref([
         {
           title: 'Learn Vue JS',
           completed: false,
-        },
-        {
-          title: 'Code a Todo list',
-           completed: false,
-        },
-        {
-          title: 'Học TypeScript',
-           completed: false,
         }
-      ];
+      ]);
+      const dataValue = (value) => {
+      todos.value.push({
+        title: value,
+        completed: false,
+      });
+      console.log(123);
+    };
     return {  
     dataValue,
     todos,

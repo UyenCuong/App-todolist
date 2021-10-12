@@ -7,8 +7,8 @@
       @remove="todos.splice(index, 1)"
     >
         <li class="todoItem__list--title ">
-          {{ todoProps.title }}
-          <p :class="[ todoProps.completed ? 'is-completed' : '' ]">{{todoProps.title}}</p>
+          {{ index + 1 }} .
+          <p :class="{ 'is-completed': todo.completed }">{{todo.title}}</p>
             <input 
             class="todoItem__list--input " 
             type="checkbox" 
@@ -32,27 +32,29 @@
 </template>
 
 <script>
+import { computed } from 'vue';
 import DeleteTodoButton from './DeleteTodoButton.vue';
 export default {
      name:'StatusTodoInput',
     props :['todoProps'],
-
-    
      components: {
        DeleteTodoButton,
      },
     
-     data(){
-      
-        const markItemCompleted = () => {
+     data(props) {
+       const todos = computed(() => props.todoProps);
+       console.log(todos.value);
+       const markItemCompleted = () => {
          console.log('mark')
        }
-       const removeFunction =() =>{
+       const removeFunction = () =>{
          console.log(123);
        }
+       
     return {
+      todos,
       markItemCompleted,
-    removeFunction,
+      removeFunction,
       move : 'Move done item at the end?',
       
     }
