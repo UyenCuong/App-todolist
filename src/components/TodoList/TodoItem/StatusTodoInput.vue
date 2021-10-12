@@ -1,12 +1,14 @@
 <template>
 <div class="todoItem " >
-   <ul class="todoItem__list" v-for="(todo) in todos "
+   <ul class="todoItem__list" v-for="(todo , index) in todos "
       :key="todo.id"
       :title="todo.title"
+     
       @remove="todos.splice(index, 1)"
     >
         <li class="todoItem__list--title ">
-          <p :class="[ todo.completed ? 'is-completed' : '' ]">{{todo.title}}</p>
+          {{ todoProps.title }}
+          <p :class="[ todoProps.completed ? 'is-completed' : '' ]">{{todoProps.title}}</p>
             <input 
             class="todoItem__list--input " 
             type="checkbox" 
@@ -33,30 +35,15 @@
 import DeleteTodoButton from './DeleteTodoButton.vue';
 export default {
      name:'StatusTodoInput',
-    props :['todo'],
+    props :['todoProps'],
+
     
      components: {
        DeleteTodoButton,
      },
     
      data(){
-       const todos = [
-        {
-          id: 1,
-          title: 'Learn Vue JS',
-          completed: false,
-        },
-        {
-          id: 2,
-          title: 'Code a Todo list',
-           completed: false,
-        },
-        {
-          id: 3,
-          title: 'Học TypeScript',
-           completed: false,
-        }
-      ];
+      
         const markItemCompleted = () => {
          console.log('mark')
        }
@@ -67,7 +54,7 @@ export default {
       markItemCompleted,
     removeFunction,
       move : 'Move done item at the end?',
-      todos,
+      
     }
   },
  }

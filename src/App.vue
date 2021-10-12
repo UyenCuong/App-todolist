@@ -3,7 +3,9 @@
     
       <TodoHeader/>
       <div class="todo-item">
-      <StatusTodoInput/>
+      <StatusTodoInput 
+      :todoProps="todos"
+      />
     
       </div>
       <AddTodoInput @value-input="dataValue"/>
@@ -28,9 +30,24 @@ export default {
   data() {
     const dataValue = (value) => {
       console.log(value);
-    }
+    };
+     const todos = [
+        {
+          title: 'Learn Vue JS',
+          completed: false,
+        },
+        {
+          title: 'Code a Todo list',
+           completed: false,
+        },
+        {
+          title: 'Học TypeScript',
+           completed: false,
+        }
+      ];
     return {  
     dataValue,
+    todos,
     }
   }
     }
