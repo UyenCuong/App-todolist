@@ -39,7 +39,7 @@ export default {
         title: value,
         completed: false,
       });
-      console.log(123);
+    
     };
     return {  
     dataValue,

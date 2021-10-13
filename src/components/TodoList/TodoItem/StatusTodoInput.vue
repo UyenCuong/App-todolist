@@ -21,14 +21,14 @@
       
         </li>
   </ul>
-   <div class="todoItem__move--item">
+  
+</div>
+ <div class="todoItem__move--item">
           <p>{{ move }}</p>
           <input 
             type="checkbox" 
             class="toggle-action">
             </div>
-</div>
-
 </template>
 
 <script>
@@ -47,8 +47,8 @@ export default {
        const markItemCompleted = () => {
          console.log('mark')
        }
-       const removeFunction = () =>{
-         console.log(123);
+       const removeFunction = (index) =>{
+        todos.value.splice(index, 1);
        }
        
     return {
@@ -65,6 +65,9 @@ export default {
 <style>
 .todoItem {
   margin-top:30px;
+  overflow: auto;
+ max-width: 450px;
+ max-height: 200px;
 }
 .todoItem__list {
   list-style-type: none;
