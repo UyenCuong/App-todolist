@@ -9,17 +9,14 @@
         <li class="todoItem__list--title ">
           {{ index + 1 }} .
           <p :class="{ 'is-completed': todo.completed }" @click="markItemCompleted(todo)">{{todo.title}}</p>
-            <input 
-            class="todoItem__list--input " 
-            type="checkbox" 
-            :checked="todo.completed"
-            v-on:change="markItemCompleted(todo)"
-            />
-            
-        
-          <DeleteTodoButton @remove="removeFunction(index)" />
-      
-        </li>
+          <input 
+          class="todoItem__list--input " 
+          type="checkbox" 
+          :checked="todo.completed"
+          v-on:change="markItemCompleted(todo)"
+          />
+         <DeleteTodoButton @remove="removeFunction(index)" />
+       </li>
   </ul>
   
 </div>
@@ -48,7 +45,7 @@ export default {
        const sortEnable = ref(false);
        const todos = computed(() => props.todoProps);
        const markItemCompleted = (todo) => {
-         todo.completed = !todo.completed;
+          todo.completed = !todo.completed;
        }
 
        const sortListTodo = () => {
@@ -71,7 +68,6 @@ export default {
        });
        watch(props.todoProps, ()=>{
          if(sortEnable.value) {
-           console.log(123);
            sortListTodo();
          }
        });
