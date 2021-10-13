@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import { ref, computed } from 'vue';
+import { ref, computed, watchEffect } from 'vue';
 import DeleteTodoButton from './DeleteTodoButton.vue';
 export default {
      name:'StatusTodoInput',
@@ -66,6 +66,9 @@ export default {
        const removeFunction = (index) =>{
         todos.value.splice(index, 1);
        }
+       watchEffect(() => {
+        todos.value.splice(0, 1);
+       });
     return {
       todos,
       sortEnable,
