@@ -24,8 +24,8 @@ export default {
      const add ='Add to the todo list';
      const nameTitle = ref('');
      const addTodo = () => {
-
          this.$emit('value-input', nameTitle.value);
+         nameTitle.value = '';
      }
      return{
         add,

@@ -1,38 +1,41 @@
 <template>
 <div class="todoItem " >
    <ul class="todoItem__list" v-for="(todo , index) in todos "
-      :key="todo.id"
+      :key="index"
       :title="todo.title"
      
       @remove="todos.splice(index, 1)"
     >
         <li class="todoItem__list--title ">
           {{ index + 1 }} .
-          <p :class="{ 'is-completed': todo.completed }">{{todo.title}}</p>
+          <p :class="{ 'is-completed': todo.completed }" @click="markItemCompleted(todo)">{{todo.title}}</p>
             <input 
             class="todoItem__list--input " 
             type="checkbox" 
             :checked="todo.completed"
-            v-on:change="markItemCompleted"
+            v-on:change="markItemCompleted(todo)"
             />
             
         
-          <DeleteTodoButton @remove="removeFunction" />
+          <DeleteTodoButton @remove="removeFunction(index)" />
       
         </li>
   </ul>
   
 </div>
  <div class="todoItem__move--item">
-          <p>{{ move }}</p>
-          <input 
-            type="checkbox" 
-            class="toggle-action">
-            </div>
+    <p>{{ move }}</p>
+    <input 
+      v-model="sortEnable"
+      type="checkbox" 
+      class="toggle-action"
+      @click="sortListTodo"
+      >
+  </div>
 </template>
 
 <script>
-import { computed } from 'vue';
+import { ref, computed } from 'vue';
 import DeleteTodoButton from './DeleteTodoButton.vue';
 export default {
      name:'StatusTodoInput',
@@ -42,18 +45,32 @@ export default {
      },
     
      data(props) {
+       const sortEnable = ref(false);
        const todos = computed(() => props.todoProps);
-       console.log(todos.value);
-       const markItemCompleted = () => {
-         console.log('mark')
+       const markItemCompleted = (todo) => {
+         todo.completed = !todo.completed;
        }
+
+       const sortListTodo = () => {
+        for(let index = 0; index < todos.value.length - 1; index++) {
+          for(let indexFake = index + 1; indexFake <  todos.value.length; indexFake++) {
+             if(todos.value[index].completed) {
+               let memory = todos.value[index];
+               todos.value[index] = todos.value[indexFake]; 
+               todos.value[indexFake] = memory;
+            }
+          }
+        }
+       }
+       
        const removeFunction = (index) =>{
         todos.value.splice(index, 1);
        }
-       
     return {
       todos,
+      sortEnable,
       markItemCompleted,
+      sortListTodo,
       removeFunction,
       move : 'Move done item at the end?',
       
